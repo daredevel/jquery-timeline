@@ -23,40 +23,32 @@
 
             var prevEvent = this._findPrevEventByTimestamp(Date.parse(datetime));
 
-            if (prevEvent == undefined) {
-                var splitContainer = $('<div/>', {
-                    'class': 'daredevel-timeline-split'
-                });
-                var splitTitle = $('<div/>', {
-                    'class': 'daredevel-timeline-split-title',
-                    'html':datetime.getFullYear()
-                });
+            var splitContainer = this._findSplitContainer(datetime);
 
-                splitContainer.append(splitTitle);
+            if ((splitContainer == undefined) && (prevEvent == undefined)) {
+                splitContainer = this._buildSplitContainer(datetime);
                 splitContainer.append(event);
-
                 this.element.prepend(splitContainer);
-
-            } else {
-                prevEvent.after(event);
-                var attr = parseInt(prevEvent.attr('data-timestamp'));
-                var prevDatetime = new Date(attr);
-                if (prevDatetime.getFullYear() != datetime.getFullYear()) {
-                    var splitContainer = $('<div/>', {
-                        'class': 'daredevel-timeline-split'
-                    });
-                    var splitTitle = $('<div/>', {
-                        'class': 'daredevel-timeline-split-title',
-                        'html':datetime.getFullYear()
-                    });
-
-                    splitContainer.append(splitTitle);
-
-                    event.parent().after(splitContainer);
-
-                    splitContainer.append(event);
-                }
+                return;
             }
+
+            if ((splitContainer != undefined) && (prevEvent == undefined)) {
+                splitContainer.find('.daredevel-timeline-split-title').after(event);
+                return;
+            }
+
+            if ((splitContainer != undefined) && (prevEvent != undefined)) {
+                prevEvent.after(event);
+                return;
+            }
+
+            if ((splitContainer == undefined) && (prevEvent != undefined)) {
+                splitContainer = this._buildSplitContainer(datetime);
+                splitContainer.append(event);
+                prevEvent.parent().after(splitContainer);
+                return;
+            }
+
         },
 
         /**
@@ -91,6 +83,21 @@
             });
 
             return event.append(title).append(datetime).append(content);
+        },
+
+        _buildSplitContainer: function(datetime){
+            var splitContainer = $('<div/>', {
+                'class': 'daredevel-timeline-split',
+                'data-year': datetime.getFullYear()
+            });
+            var splitTitle = $('<div/>', {
+                'class': 'daredevel-timeline-split-title',
+                'html':datetime.getFullYear()
+            });
+
+            splitContainer.append(splitTitle);
+
+            return splitContainer;
         },
 
         /**
@@ -178,6 +185,15 @@
             }
 
             return $('[data-timestamp="' + prevTimestamp + '"]');
+        },
+
+        _findSplitContainer:function (datetime) {
+            var splitContainer = this.element.find('div[data-year="' + datetime.getFullYear() + '"]');
+            if (splitContainer.length < 1) {
+                return undefined;
+            }
+
+            return splitContainer;
         },
 
         /**
