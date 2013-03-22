@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Timeline Widget demo</title>
+
+    <!-- styles for demo purpose -->
+    <style type="text/css">
+        body {
+            font-family: verdana, arial;
+            font-size: 0.8em;
+        }
+
+        code {
+            white-space: pre;
+        }
+    </style>
+
+    <!-- start tree configuration -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript"
+            src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
+<!--
+    <script type="text/javascript" src="minified/jquery.tree.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="minified/jquery.tree.min.css"/>
+    <!-- end tree configuration -->
+
+    <!-- start development configuration -->
+    <script type="text/javascript" src="src/js/jquery.timeline.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/jquery.timeline.css"/>
+    <!-- end development configuration -->
+
+    <script type="text/javascript">
+        //<!--
+        $(document).ready(function() {
+            $( "#accordion" ).accordion({
+                'collapsible': true,
+                'heightStyle': 'content',
+                'active': -1
+            });
+            $('.jquery').each(function() {
+                eval($(this).html());
+            });
+            $('.button').button();
+        });
+        //-->
+    </script>
+</head>
+<body>
+    <h1>jQuery Timeline Widget demo</h1>
+    <a href="https://github.com/daredevel/jquery-timeline/" class="button">Project Home</a>
+
+    <div id="accordion">
+
+        <h3><a href="#">Default behaviour</a></h3>
+        <div id="example-0">
+            <p>This example show all script basic features.</p>
+            <code class="jquery" lang="text/javascript">
+                var events = [
+                    {
+                        'datetime': '2011-02-03 00:00:00',
+                        'title': 'Event Z',
+                        'content': 'lipsum'
+                    },
+                    {
+                        'datetime': '2012-02-03 00:10:00',
+                        'datetimeToShow': '03 Feb at 10:00',
+                        'title': 'Event with human datetime',
+                        'content': 'This is to show datetimeToShow option usage'
+                    },
+                    {
+                        'datetime': '2012-02-03 00:00:00',
+                        'title': 'Event to not split',
+                        'content': 'This is to show two events in the same year'
+                    },
+
+                    {
+                        'datetime': '2013-02-03 00:00:00',
+                        'title': 'Event',
+                        'content': 'Simple event'
+                    },
+                    {
+                        'datetime': '2001-02-03 00:00:00',
+                        'title': 'Event html',
+                        'content': 'click <a href="http://www.google.com">here</a>'
+                    }
+                ]
+                $('#example-0 div').timeline({
+                    'events': events
+                });
+            </code>
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

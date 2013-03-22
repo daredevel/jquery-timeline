@@ -1,0 +1,15 @@
+.daredevel-timeline {
+    width: 600px;
+}
+
+.daredevel-timeline-event {
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.daredevel-timeline-event-title {
+    border-bottom: 1px solid black;
+}
+.daredevel-timeline-split-title {
+    font-weight: bold;
+}
