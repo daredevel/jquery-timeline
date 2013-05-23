@@ -60,11 +60,9 @@
          */
         _buildEvent:function (attributes) {
 
-            var date = new Date(attributes.datetime);
-
             var event = $('<div/>', {
                 'class': 'daredevel-timeline-event',
-                'data-timestamp':Date.parse(date)
+                'data-timestamp':Date.parse(attributes.datetime)
             });
 
             var title = $('<div/>', {
